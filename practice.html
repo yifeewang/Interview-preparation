@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // get
+        // const xhr = new XMLHttpRequest();
+        // let url = 'http://example.com/getData?id=123';
+        // xhr.open('get', url, true);
+        // xhr.send();
+        // xhr.onreadystatechange = function () {
+        //     if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        //         console.log(1111, xhr.responseText)
+        //     }
+        // }
+        // post
+        const xhr = new XMLHttpRequest();
+        let url = 'http://example.com/getData?id=123';
+        let dataObj = {
+            name: 'yifee',
+            age: 22
+        };
+        xhr.open('post', url, true);
+        xhr.send(JSON.stringify(dataObj));
+        xhr.onreadystatechange = function () {
+            if(xhr.readyState === 4 && xhr.status === 200) {
+                //判断http的交互是否成功，200表示成功
+                var resData = xhr.responseText
+                if (resData && obj.dataType === 'json') {
+                    try {
+                        resData = JSON.parse(resData)
+                    } catch (err) {
+                        console.log(err)
+                    }
+                }
+                callback(resData); //回调传递参数
+            } else {
+                callback(new Error(xhr.statusText))
+            }
+        }
+    </script>
+</body>
+</html>

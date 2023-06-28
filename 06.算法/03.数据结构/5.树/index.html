@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    const tree = {
+        val: 'a',
+        children: [
+            {
+                val: 'b', 
+                children: [
+                    {val: 'd', children: []},
+                    {val: 'e', children: []}
+                ]
+            },
+            {
+                val: 'c', 
+                children: [
+                    {val: 'f', children: []},
+                    {val: 'g', children: []}
+                ]
+            }
+        ]
+    }
+    // 深度优先
+    function func1(root) {
+        console.log(root.val);
+        root.children.forEach(func1)
+    }
+    func1(tree)
+    // 广度优先
+    function func2(root) {
+        let arr = [root]
+        while(arr.length) {
+            let o = arr.shift();
+            console.log(o.val);
+            o.children.forEach(item => {
+                arr.push(item)
+            })
+        }
+    }
+    func2(tree)
+</script>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    8.27
+</body>
+<script>
+    const tree = {
+        val: '1',
+        left: {
+            val: '2',
+            left: {
+                val: '4',
+                left: null,
+                right: null
+            },
+            right: {
+                val: '5',
+                left: null,
+                right: null
+            }
+        },
+        right: {
+            val: '3',
+            left: {
+                val: '6',
+                left: null,
+                right: null
+            },
+            right: {
+                val: '7',
+                left: null,
+                right: null
+            }
+        }
+    }
+    //1. 递归
+    var inorderTraversal = function(root) {
+        let arr = [];
+        let func = (node) => {
+            if(!node) return;
+            func(node.left);
+            arr.push(node.val);
+            func(node.right);
+        } 
+        func(root);
+        return arr;
+    };
+    console.log(11111, inorderTraversal(tree))
+    // 1234
+    //2. 栈
+    var inorderTraversal = function(root) {
+        let arr = [];
+        let stack = [];
+        let o = root;
+        while(stack.length || o) {
+            while(o) {
+                stack.push(o)
+                o = o.left
+            }
+            let n = stack.pop()
+            arr.push(n.val)
+            o = n.right
+        }
+        return arr;
+    };
+    console.log(22222, inorderTraversal(tree))
+</script>
+</html>

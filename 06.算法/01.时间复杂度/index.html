@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+
+//O(1)，
+// 程序的执行时间不随变量的变化而变化 所以该算法复杂度为O(1)
+// 也就是说O(1)的时间复杂度除了递归和循环，基本都是O(1)了
+const a = 1;
+const b = 2;
+
+function add(num) {
+    return num++
+}
+add(6)
+add(6)
+add(6)
+add(6)
+
+//O(n)，
+// 程序的执行时间随变量n的变化而变化 所以该算法复杂度为O(n)
+let n = 100;
+for (let i = 0; i < n; i++) {
+    console.log(i)
+}
+
+// O(1) + O(n) = O(n)
+function func(n) {
+    //O(1)
+    let i = 1;
+    i += 2;
+    //O(n)
+    for (let i = 0; i < n; i++) {
+        console.log(i)
+    }
+}
+
+//O(n^2)，
+function foo(n) {
+    let arr = [];
+    for (let i = 0; i < n; i++) {
+        arr.push([]);
+        for (let j = 0; j < n; j++) {
+            arr[i][j] = ['a']
+        }
+    }
+}
+foo(6)
+//O(logn)
+let i = 1;
+let n = 6;
+while (i < n) {
+    i=i*2
+}
+
+</script>
+</body>
+</html>

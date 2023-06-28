@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    const tree = {
+        val: '1',
+        left: {
+            val: '2',
+            left: {
+                val: '4',
+                left: null,
+                right: null
+            },
+            right: {
+                val: '5',
+                left: null,
+                right: null
+            }
+        },
+        right: {
+            val: '3',
+            left: {
+                val: '6',
+                left: null,
+                right: null
+            },
+            right: {
+                val: '7',
+                left: null,
+                right: null
+            }
+        }
+    }
+    //2. 队列
+    var minDepth = function(root) {
+        if(!root) return 0;
+        let stack = [[root, 1]];
+        while(stack.length) {
+            let [o, n] = stack.shift();
+            if(!o.left && !o.right) {
+                return n;
+            }
+            o.left && stack.push([o.left, n+1])
+            o.right && stack.push([o.right, n+1])
+        }
+    };
+</script>
+</html>

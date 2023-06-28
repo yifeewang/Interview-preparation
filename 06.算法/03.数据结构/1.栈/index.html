@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+// 栈练习 识别非闭合符号
+//leetcode 20
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+ var isValid = function(s) {
+    const stacks= [];
+    for(let i=0; i<s.length; i++) {
+        const end = stacks[stacks.length - 1];
+        const start = s[i];
+        if((start === ']' && end === '[') || (start === ')' && end === '(') || (start === '}' && end === '{')) {
+            stacks.pop()
+        } else { 
+            stacks.push(start)
+        }
+    };
+    return stacks.length === 0 ? true : false;
+};
+isValid("(){}")
+isValid("(]{}")
+//leetcode 1047 删除重复相邻字母
+/**
+ * @param {string} s
+ * @return {string}
+ */
+ var removeDuplicates = function(s) {
+    let stacks = [];
+    for(let i=0; i<s.length; i++) {
+        const end = stacks[stacks.length -1]
+        if(end !== s[i]) {
+            stacks.push(s[i])
+        } else {
+            stacks.pop()
+        }
+    }
+    return stacks.join('')
+};
+removeDuplicates("abbaac")
+//leetcode 71 简化路径
+/**
+ * @param {string} path
+ * @return {string}
+ */
+ var simplifyPath = function(path) {
+    const stacks = [];
+    const str = '';
+    const arr = path.split('/')
+    arr.forEach(i => {
+        if(i && i === '..') {
+            stacks.pop()
+        }else if(i && i !== '.') {
+            stacks.push(i)
+        }
+    })
+    return stacks.length ? '/' + stacks.join('/') : '/'
+};
+simplifyPath("/home//foo/")
+</script>
+</body>
+</html>

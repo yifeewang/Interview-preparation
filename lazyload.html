@@ -1,0 +1,71 @@
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lazyload</title>
+    <style>
+      body {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10%;
+      }
+      img {
+        display: block;
+        height: 600px;
+        width: 45%;
+      }
+    </style>
+  </head>
+  <body>
+    <img src="" data-src="https://csopmweb-cdn.iyoudui.com/busimamage/166972468114458.png" />
+    <img src="" data-src="https://csopmweb-cdn.iyoudui.com/busimamage/166972468114458.png" />
+    <img src="" data-src="https://csopmweb-cdn.iyoudui.com/busimamage/166972468114458.png" />
+    <img src="" data-src="https://csopmweb-cdn.iyoudui.com/busimamage/166972468114458.png" />
+    <img src="" data-src="https://csopmweb-cdn.iyoudui.com/busimamage/166972468114458.png" />
+    <img src="" data-src="https://csopmweb-cdn.iyoudui.com/busimamage/166972468114458.png" />
+    <img src="" data-src="https://csopmweb-cdn.iyoudui.com/busimamage/166972468114458.png" />
+    <img src="" data-src="https://csopmweb-cdn.iyoudui.com/busimamage/166972468114458.png" />
+    <img src="" data-src="https://csopmweb-cdn.iyoudui.com/busimamage/166972468114458.png" />
+    <img src="" data-src="https://csopmweb-cdn.iyoudui.com/busimamage/166972468114458.png" />
+  </body>
+  <script>
+        // 法一 getBoundingClientRect + onScroll
+        // function lazyLoad() {
+        //     const viewHeight = window.innerHeight || document.body.clientHeight
+        //     const imgList = document.querySelectorAll('img[data-src]')
+        //     imgList.forEach(item => {
+        //         if(!item.dataset.src) return;
+
+        //         const rect = item.getBoundingClientRect();
+        //         if(rect.bottom >= 0 && rect.top < viewHeight) {
+        //             // item.setAttribute('src', item.dataset.src)
+        //             item.src = item.dataset.src
+        //             item.removeAttribute('data-src')
+        //         }
+        //     })
+        // }
+        // lazyLoad()
+        // window.addEventListener('scroll', () => {
+        //     lazyLoad()
+        // })
+        // 法二 IntersectionObserver
+        const imgList = document.querySelectorAll('img[data-src]');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                console.log(1111, entry)
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.setAttribute('src', img.dataset.src)
+                    img.removeAttribute('data-src')
+                    observer.unobserve(img)
+                }
+            })
+        }, {
+            threshold: 0,
+            rootMargin: '0px'
+        })
+        imgList.forEach(i => {
+            observer.observe(i)
+        })
+  </script>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    const tree = {
+        val: '1',
+        left: {
+            val: '2',
+            left: {
+                val: '4',
+                left: null,
+                right: null
+            },
+            right: {
+                val: '5',
+                left: null,
+                right: null
+            }
+        },
+        right: {
+            val: '3',
+            left: {
+                val: '6',
+                left: null,
+                right: null
+            },
+            right: {
+                val: '7',
+                left: null,
+                right: null
+            }
+        }
+    }
+    // 1.递归
+    var preordertraversal = (root) => {
+        var arr = [];
+
+        var func = (node) => {
+            if(node) {
+                // 先根节点
+                arr.push(node.val)
+                // 遍历左子树
+                func(node.left)
+                // 遍历右子树
+                func(node.right)
+            }
+        }
+        func(root);
+        return arr;
+    }
+    console.log(1111, preordertraversal(tree))
+
+    // 2.栈 (性能更好)
+    var preordertraversal = (root) => {
+        if(!root) return [];
+        let stack = [root];
+        let arr = [];
+        while( stack.length ) {
+            let o = stack.pop();
+            arr.push(o.val);
+
+            o.right && stack.push(o.right);
+            o.left && stack.push(o.left);
+        }
+        return arr;
+    }
+</script>
+</html>

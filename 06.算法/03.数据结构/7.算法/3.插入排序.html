@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+// 将第一个元素标记为已排序
+
+// 对于每一个未排序的元素 X
+
+//   “提取” 元素 X
+
+//   i = 最后排序过元素的索引 到 0 的遍历
+
+//     如果当前元素 j > X
+
+//       将排序过的元素向右移一格
+
+//     跳出循环并在此插入 X
+const insertSort = (arr) => {
+    let len = arr.length;
+    for (let i = 1; i < len; i++) {
+        let temp = arr[i];
+        let j = i - 1;
+        while (j>=0 && arr[j] > temp) {
+            arr[j + 1]  = arr[j];
+            j--;
+        }
+        arr[j + 1] = temp
+
+    }
+    return arr;
+}
+console.log(11111, insertSort([7,3,6,1,5,2,3]))
+</script>
+</body>
+</html>

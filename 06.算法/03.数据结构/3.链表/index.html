@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+</body>
+<script>
+    let linkList = {
+        val: 1, 
+        next: {
+            val: 1, 
+            next: {
+                val: 2, 
+                next: null
+            }
+        }
+    }
+
+    let a = {key: 'a'};
+    let b = {key: 'b'};
+    let c = {key: 'c'};
+    let d = {key: 'd'};
+
+    a.next = b;
+    b.next = c;
+    c.next = d;
+    d.next = null;
+
+    //遍历列表
+    let obj = a;
+    while (obj && obj.key) {
+        console.log(obj.key)
+        obj = obj.next
+    }
+
+    //链表中插入数据
+    let m = {key: 'm'};
+    c.next = m;
+    m.next = d;
+    console.log(a)
+
+    // 删除操作
+    c.next = d;
+
+    // 206. 反转链表
+    var reverseList = function(head) {
+        if(!head) return head;
+        let obj = head;
+        let arr = [];
+        while(obj) {
+            arr.unshift({
+                val: obj.val,
+                next: arr[0] ? arr[0] : null
+            });
+            obj = obj.next;
+        }
+        return arr[0]
+    };
+    var reverseList = function(head) {
+        if(!head) return null;
+        let cur = head;
+        let pre = null;
+        while(cur) {
+            pre = {
+                val: cur.val,
+                next: pre
+            }
+            cur = cur.next;
+        }
+        return pre;
+    };
+
+    var reverseList = function(head) {
+        let prev = null;
+        let cur = head;
+        let next = null;
+        while(cur) {
+            next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        return prev;
+    };
+</script>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    class MinHeap {
+        constructor() {
+            this.heap = [];
+        }
+        // 添加
+        insert(num) {
+            this.heap.push(num);
+            const nowIndex = this.heap.length - 1;
+            this.up(nowIndex);
+        }
+        // 删除堆顶
+        pop() {
+            this.heap[0] = this.heap.pop();
+            this.down(0);
+        }
+        // 获取堆顶
+        peek() {
+            return this.heap[0];
+        }
+        // 获取长度
+        size() {
+            return this.heap.length;
+        }
+        // 获取父节点
+        getParentIndex(index) {
+            return Math.floor((index - 1) / 2)
+        }
+        // 获取子左节点
+        getLeftIndex(index) {
+            return index * 2 + 1
+        }
+        // 获取子右节点
+        getRightIndex(index) {
+            return index * 2 + 2
+        }
+        // 节点互换
+        swap(parentIndex, index) {
+            // [this.heap[parentIndex], this.heap[index]] = [this.heap[index], this.heap[parentIndex]];
+            const temp = this.heap[parentIndex];
+            this.heap[parentIndex] = this.heap[index];
+            this.heap[index] = temp;
+        }
+        // 上（前）移操作
+        up(index) {
+            // debugger;
+            if(index === 0) return;
+            const parentIndex = this.getParentIndex(index);
+            if(this.heap[parentIndex] > this.heap[index]) {
+                this.swap(parentIndex, index);
+                this.up(parentIndex);
+            }
+        }
+        // 下（后）移操作
+        down(index) {
+            // debugger;
+            const leftIndex = this.getLeftIndex(index);
+            const rightIndex = this.getRightIndex(index);
+            if(this.heap[leftIndex] < this.heap[index]) {
+                this.swap(leftIndex, index);
+                this.down(leftIndex);
+            }
+            if(this.heap[rightIndex] < this.heap[index]) {
+                this.swap(rightIndex, index);
+                this.down(rightIndex);
+            }
+        }
+    }
+    let arr = new MinHeap();
+    window.arr = arr;
+    // arr.insert(5);
+    // arr.insert(4);
+    // arr.insert(6);
+    // arr.insert(1);
+    // arr.pop();
+    [3,2,1,3,2,4,5,5,6].forEach(i => {
+        arr.insert(i);
+    })
+    console.log(1111, arr)
+</script>
+</body>
+</html>

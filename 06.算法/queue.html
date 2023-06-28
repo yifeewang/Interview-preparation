@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <button onclick="start()">开始</button>
+        <button onclick="q.stop()">暂停</button>
+    </div>
+
+    <script>
+        const start = async () => {
+            console.log(1234, await q.start())
+        }
+        class queue {
+            constructor(options) {
+                this.queue = options.queue || [];
+                this.index = 0;
+                this.isStart = false;
+                this.result = [];
+            }
+            enqueue(func) {
+                this.queue.push(func)
+            }
+            async start() {
+                this.isStart = true
+                return new Promise(async (resolve, reject) => {
+                    try {
+                        while (this.index < this.queue.length) {
+                            const func = this.queue[this.index];
+                            console.log('开始执行---' + this.index)
+                            this.result.push(await func())
+                            this.index++;
+                            if (!this.isStart) {
+                                return;
+                            };
+                        }
+                        this.index === this.queue.length&& resolve(this.result)
+                    } catch (error) {
+                        reject(error)
+                    }
+                })
+            }
+            stop() {
+                this.isStart = false
+            }
+        }
+
+        const func1 = () => {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(1111)
+                    console.log('func1---执行完毕')
+                }, 500);
+            })
+        }
+
+        const func2 = () => {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(2222)
+                    console.log('func2---执行完毕')
+                }, 1000);
+            })
+        }
+
+        const func3 = () => {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(3333)
+                    console.log('func3---执行完毕')
+                }, 1500);
+            })
+        }
+
+        const q = new queue({
+            queue: [func1, func2, func3]
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    const tree = {
+        val: '1',
+        left: {
+            val: '2',
+            left: {
+                val: '4',
+                left: null,
+                right: null
+            },
+            right: {
+                val: '5',
+                left: null,
+                right: null
+            }
+        },
+        right: {
+            val: '3',
+            left: {
+                val: '6',
+                left: null,
+                right: null
+            },
+            right: {
+                val: '7',
+                left: null,
+                right: null
+            }
+        }
+    }
+    //1. 递归
+    var postorderTraversal = function(root) {
+        let arr = [];
+        let func = (node) => {
+            if(!node) return;
+            func(node.left);
+            func(node.right);
+            arr.push(node.val);
+        } 
+        func(root);
+        return arr;
+    };
+    console.log(11111, postorderTraversal(tree))
+    //2. 栈
+    var postorderTraversal = function(root) {
+        let arr = [];
+        let stack = [root];
+        while( stack.length ) {
+            let n = stack.pop();
+            arr.unshift(n.val);
+            n.left && stack.push(n.left)
+            n.right && stack.push(n.right)
+        }
+        return arr;
+    };
+    console.log(22222, postorderTraversal(tree)) 
+</script>
+</html>

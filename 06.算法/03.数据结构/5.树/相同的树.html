@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    const tree1 = {
+        val: '1',
+        left: {
+            val: '2',
+            left: {
+                val: '4',
+                left: null,
+                right: null
+            },
+            right: {
+                val: '5',
+                left: null,
+                right: null
+            }
+        },
+        right: {
+            val: '3',
+            left: {
+                val: '6',
+                left: null,
+                right: null
+            },
+            right: {
+                val: '7',
+                left: null,
+                right: null
+            }
+        }
+    }
+    const tree2 = {
+        val: '1',
+        left: {
+            val: '2',
+            left: {
+                val: '4',
+                left: null,
+                right: null
+            },
+            right: {
+                val: '5',
+                left: null,
+                right: null
+            }
+        },
+        right: {
+            val: '3',
+            left: {
+                val: 'x',
+                left: null,
+                right: null
+            },
+            right: {
+                val: '7',
+                left: null,
+                right: null
+            }
+        }
+    }
+    // 法一 栈
+    // var isSameTree = function(p, q) {
+    //     let stack1 = [p]; let stack2 = [q];
+    //     if(!p && !q) return true;
+    //     if((!p && q) || (p && !q)) return false;
+    //     while(stack1.length) {
+    //         let o = stack1.shift();
+    //         let n = stack2.shift();
+    //         if(o.val != n.val) {
+    //             return false
+    //         }
+    //         if((o.left && !n.left) || (!o.left && n.left)) {
+    //             return false
+    //         }
+    //         if((o.right && !n.right) || (!o.right && n.right)) {
+    //             return false
+    //         }
+    //         o.left && stack1.push(o.left);
+    //         o.right && stack1.push(o.right);
+    //         n.left && stack2.push(n.left);
+    //         n.right && stack2.push(n.right);
+    //     }
+    //     return true
+    // };
+    // console.log(1111, isSameTree(tree1, tree2))
+    // 法二 递归
+    var isSameTree = function(p, q) {
+        if(!p && !q) return true;
+        if(!p || !q) return false;
+        if(p.val != q.val) return false;
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
+    };
+    console.log(2222, isSameTree(tree1, tree2))
+</script>
+</html>

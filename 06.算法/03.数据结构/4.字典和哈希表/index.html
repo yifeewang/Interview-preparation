@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+// var a = {};
+// var b = {
+//     key: 'b'
+// }
+// var c = {
+//     key: 'c'
+// }
+// a[b] = '123';
+// a[c] = '456';
+// console.log(a[b]) // 456，因为b，c都是对象，会被转化为字符串[Object, Object]
+
+
+var twoSum = function(nums, target) {
+        let m = new Map();
+        for (let indx = 0; indx < nums.length; indx++) {
+            if(m.has(target - nums[indx])) {
+                return [m.get(target - nums[indx]), indx]
+            }
+            m.set(nums[indx], indx)
+        }
+};
+console.log(3333, twoSum([2,7,11,15], 9))
+</script>
+</body>
+</html>

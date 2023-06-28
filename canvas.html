@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="animation" width="600" height="400"></canvas>
+    <script>
+        const canvas = document.getElementById('animation');
+        const ctx = canvas.getContext('2d');
+        const particlesCount = 100;
+        const particleMaxLife = 500; // 每个粒子的最大寿命
+        const particles = [];
+
+        // 粒子类
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width; // 粒子x坐标
+                this.y = Math.random() * canvas.height; // 粒子y坐标
+                this.vx = Math.random() * 2 - 1; // 粒子x速度
+                this.vy = Math.random() * 2 - 1; // 粒子y速度
+                this.life = Math.round(Math.random() * particleMaxLife); // 粒子寿命
+                this.color = `rgb(${Math.round(Math.random() * 255)},${Math.round(
+      Math.random() * 255
+    )},${Math.round(Math.random() * 255)})`; // 粒子颜色
+                this.size = Math.round(Math.random() * 8); // 粒子大小
+            }
+
+            // 绘制粒子
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+
+            // 更新粒子状态
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.life--;
+                if (this.life <= 0) {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.life = particleMaxLife;
+                }
+                // 碰撞边界反弹
+                if (this.x < 0 || this.x > canvas.width) {
+                    this.vx = -this.vx;
+                }
+                if (this.y < 0 || this.y > canvas.height) {
+                    this.vy = -this.vy;
+                }
+            }
+        }
+
+        // 初始化粒子
+        function initParticles() {
+            for (let i = 0; i < particlesCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        // 绘制粒子动画
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesCount; i++) {
+                const particle = particles[i];
+                particle.draw();
+                particle.update();
+            }
+        }
+
+        // 启动动画
+        function startAnimation() {
+            setInterval(drawParticles, 30);
+        }
+
+        initParticles();
+        startAnimation();
+    </script>
+</body>
+
+</html>

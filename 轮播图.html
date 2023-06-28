@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wraper {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .content {
+            position: absolute;
+            display: flex;
+            height: 100%;
+        }
+        .item {
+            width: 100vw;
+            height: 100vh;
+        }
+        .one {
+            background-color: red;
+        }
+        .two {
+            background-color: green;
+        }
+        .three {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="wraper">
+        <div class="content">
+            <div class="item three">3</div>
+            <div class="item one">1</div>
+            <div class="item two">2</div>
+            <div class="item three">3</div>
+            <div class="item one">1</div>
+        </div>
+    </div>
+</body>
+<script>
+    const box = document.querySelector(".content");
+    const item = document.querySelectorAll(".item");
+    let index = 1;
+    let timer = null;
+    let circleTime = 2000;
+    let transitionTime = 500;
+    let len = item.length;
+    box.style.width = `${len*100}%`;
+    box.style.transform = `translateX(${-index/len*100}%)`;
+    const initInterval = () => {
+        timer = setInterval(() => {
+            index++;
+            box.style.transition = `${transitionTime}ms`;
+            box.style.transform = `translateX(${-index/len*100}%)`;
+            if(index === 4) {
+                setTimeout(() => {
+                    index = 1;
+                    box.style.transform = `translateX(${-index/len*100}%)`;
+                    box.style.transition = `none`;
+                }, transitionTime);
+            }
+        }, circleTime)
+    }
+    initInterval()
+</script>
+</html>

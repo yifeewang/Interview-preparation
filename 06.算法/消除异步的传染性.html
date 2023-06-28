@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const request =  () => {
+            return  fetch('https://v0.yiketianqi.com/free/day?appsecret=tvT2mIRi&appid=97299368');
+        }
+        const m1 =  () => {
+            const val1 =  request()
+            console.log('m1', val1)
+            return val1;
+        }
+        const m2 =  () => {
+            const val2 =  m1()
+            console.log('m2', val2)
+            return val2;
+        }
+        const m3 =  () => {
+            const val3 =  m2()
+            console.log('m3', val3)
+            return val3;
+        }
+        const main =  () => {
+            const val =  m3()
+            console.log('res', val)
+        }
+        const run = (func) => {
+            let caches = [];
+            let i = 0;
+            const __origin_fetch__ = window.fetch;
+            window.fetch = (...args) => {
+                if(caches[i]) {
+                    //交付结果
+                    if(caches[i].status === 'fullfilled') {
+                        return caches[i].data
+                    }
+                    if(caches[i].status === 'rejected') {
+                        return caches[i].err
+                    }
+                }
+                let result = {
+                    status: 'pending',
+                    data: null,
+                    err: null
+                };
+                caches[i++] = result;
+                let prom = __origin_fetch__(...args).then(res => res.json())
+                .then(res => {
+                    result.status = 'fullfilled'
+                    result.data = res
+                },err => {
+                    result.status = 'rejected'
+                    result.err = err
+                })
+                throw prom
+            }
+            try {
+                func()
+            } catch (error) {
+                if(error instanceof Promise) {
+                    const reRun = () => {
+                        i = 0;
+                        func()
+                    }
+                    error.then(reRun, reRun)
+                }
+            }
+        } 
+        run(main)
+    </script>
+</body>
+</html>
